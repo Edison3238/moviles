@@ -9,8 +9,17 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 1999;
 
 //RUTAS 
-app.use(require('./routes/routes'))
+//app.use(require('./routes/routes'))
 
+//PRUEBA - BORRAR
+app.use(require('./routes/allowedips.routes'))
+app.use(require('./routes/cliente.routes'))
+app.use(require('./routes/clienteserver.routes'))
+app.use(require('./routes/dns.routes'))
+app.use(require('./routes/nodo.routes'))
+app.use(require('./routes/server.routes'))
+app.use(require('./routes/subred.routes'))
+app.use(require('./routes/sucursal.routes'))
 
 //subimos el server
 
