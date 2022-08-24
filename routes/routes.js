@@ -5,6 +5,8 @@ const dnsController = require('../controller/dns.controller')
 const allowedipsController = require('../controller/allowedips.controller')
 const subbredController = require('../controller/subred.controller')
 const nodoController = require('../controller/nodo.controller')
+const serverController = require('../controller/server.controller')
+
 
 const route = Router();
 
@@ -37,5 +39,10 @@ route.get('/nodo', nodoController.getNodo);
 route.post('/nodo', nodoController.postCreateNodo);
 route.put('/nodo', nodoController.putUpdateNodo);
 route.delete('/nodo', nodoController.deleteNodo);
+
+route.get('/server', serverController.getServer);
+route.post('/server', serverController.postCreateServer);
+route.put('/server', serverController.putUpdateServer);
+route.delete('/server', serverController.deleteServer);
 
 module.exports = route
