@@ -2,6 +2,8 @@ const { Router } = require('express')
 
 const nodoController = require('../controller/nodo.controller')
 
+//Declaramos midelware
+const midelware = require('../midelware/token.midelware')
 
 const route = Router();
 

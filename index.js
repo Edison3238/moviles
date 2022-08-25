@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 1999;
 //RUTAS 
 //app.use(require('./routes/routes'))
 
-//PRUEBA - BORRAR
+//VARIAS RUTAS
 app.use(require('./routes/allowedips.routes'))
 app.use(require('./routes/cliente.routes'))
 app.use(require('./routes/clienteserver.routes'))

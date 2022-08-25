@@ -1,4 +1,26 @@
 const sucursalModel = require('../model/sucursal.model')
+const token = require('../helpers/token.helper')
+
+async function postLogin(req, res) {
+    let { suc_user, suc_pass } = req.body
+
+    try {
+        const user = await sucursalModel.readSucursalByUser(suc_user)
+        if (user != undefined) {
+            if (user.suc_pass == suc_pass) {
+                const key = token.generarToken(suc_user, suc_pass)
+                res.status(200).json({ mensaje: 'contraseña correcta: ', token: key })
+            } else {
+                res.status(401).json({ mensaje: 'credenciales incorrectas' })
+            }
+        } else {
+            res.status(401).json({ mensaje: 'usuario no encontrado' })
+        }
+    } catch (error) {
+        res.status(500).send({ ERROR: error.message })
+    }
+}
+
 
 async function getSucursal(req, res) {
     try {
@@ -11,9 +33,9 @@ async function getSucursal(req, res) {
 }
 
 async function postCreateSucursal(req, res) {
-    const { suc_nombre } = req.body;
+    const { suc_nombre, suc_user, suc_pass } = req.body;
     try {
-        const sucursal = await sucursalModel.postCreateSucursal(suc_nombre);
+        const sucursal = await sucursalModel.postCreateSucursal(suc_nombre, suc_user, suc_pass);
         res.status(200).json({ mensaje: 'Sucursal creada correctamente' })
     } catch (error) {
         res.status(500).send({ ERROR: error.message })
@@ -21,9 +43,9 @@ async function postCreateSucursal(req, res) {
 }
 
 async function putUpdateSucursal(req, res) {
-    const { suc_id, suc_nombre } = req.body;
+    const { suc_id, suc_nombre, suc_user, suc_pass } = req.body;
     try {
-        const sucursal = await sucursalModel.putUpdateSucursal(suc_id, suc_nombre);
+        const sucursal = await sucursalModel.putUpdateSucursal(suc_id, suc_nombre, suc_user, suc_pass);
         res.status(200).json({ mensaje: 'Sucursal actualizada correctamente' });
     } catch (error) {
         res.status(500).send({ ERROR: error.message })
@@ -42,5 +64,6 @@ module.exports = {
     getSucursal,
     postCreateSucursal,
     putUpdateSucursal,
-    deleteSucursal
+    deleteSucursal,
+    postLogin
 }
